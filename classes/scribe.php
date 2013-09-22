@@ -24,4 +24,16 @@ class Scribe
 		if (! $content) return null;
 		return Markdown($content->content);
 	}
+	/**
+     * This Method will get all the name like from the DB and return an paginated Object ! 
+     * @param type $name
+     * @return type
+     */
+    public static function all($name, $paginate = 10) {
+        $contents = Scribe_Content::where('name', 'LIKE', $name . '%')
+                ->where_hidden(false)
+                ->order_by('id', 'DESC')
+                ->paginate($paginate);
+        return $contents;
+    }
 }
